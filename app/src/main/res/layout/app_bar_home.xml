@@ -64,16 +64,7 @@
         android:layout_marginEnd="29dp"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
-    <TextView
-        android:id="@+id/sample"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/appBarLayout3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="98dp"
-        android:width="100dp"
-        android:height="35dp"
-        android:text="TextView" />
+
 
 
 </RelativeLayout>
