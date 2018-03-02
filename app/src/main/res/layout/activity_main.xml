@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lkh.printe.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/appBarLayout2">
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="225dp"
+        android:width="200dp"
+        android:height="25dp"
+        android:foregroundGravity="center"
+        android:text="@string/LOGIN"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:width="200dp"
+        android:height="25dp"
+        android:foregroundGravity="center"
+        android:text="@string/REGISTER"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/login"
+        android:layout_below="@+id/appBarLayout2"
+        android:layout_marginTop="84dp"
+        android:width="200dp"
+        android:height="100dp"
+        android:fontFamily="cursive"
+        android:text="PrintE"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="80sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

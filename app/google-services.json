@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "552605670734",
+    "firebase_url": "https://printe-6fa47.firebaseio.com",
+    "project_id": "printe-6fa47",
+    "storage_bucket": "printe-6fa47.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552605670734:android:5167aefabedfa537",
+        "android_client_info": {
+          "package_name": "com.example.lkh.printe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552605670734-4jocnvmisuovmrum5dkbn9ieujmm8qsl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lkh.printe",
+            "certificate_hash": "3d4804a6100633a01a73cfdddee5132237026920"
+          }
+        },
+        {
+          "client_id": "552605670734-p8esclmfpcqslb1009g6nedskbchl4f8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgX_Xk5qOPcszjdJcmGmWYL8L-yZil4_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552605670734-p8esclmfpcqslb1009g6nedskbchl4f8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
