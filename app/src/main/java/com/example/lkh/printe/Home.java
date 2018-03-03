@@ -1,6 +1,8 @@
 package com.example.lkh.printe;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -13,11 +15,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView check;
+    private FirebaseAuth firebaseAuth;
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +52,13 @@ public class Home extends AppCompatActivity
 
         View header = navigationView.getHeaderView(0);
         TextView user_nm = (TextView) header.findViewById(R.id.user_name);
-        user_nm.setText(getIntent().getExtras().getString("Email"));
+        TextView user_ml = (TextView) header.findViewById(R.id.user_mail);
+        String name_string = "Hello " + getIntent().getExtras().getString("name");
+        String mail_string = getIntent().getExtras().getString("mail");
+        user_nm.setText(name_string);
+        user_ml.setText(mail_string);
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -93,10 +94,42 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
 
+            firebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(Home.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
     }
 }

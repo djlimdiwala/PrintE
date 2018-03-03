@@ -22,6 +22,7 @@
         android:layout_marginTop="67dp"
         android:width="320dp"
         android:hint="Name"
+        android:digits="qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM "
         android:inputType="textPersonName"
         android:textAlignment="center" />
 
@@ -46,6 +47,7 @@
         android:layout_below="@+id/email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
+        android:maxLength="10"
         android:width="320dp"
         android:ems="10"
         android:hint="Mobile"
