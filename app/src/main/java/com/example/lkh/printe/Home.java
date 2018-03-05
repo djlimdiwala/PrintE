@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,14 +36,7 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Home.this, take_printout_online_printers.class);
-                startActivity(intent);
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -59,19 +55,21 @@ public class Home extends AppCompatActivity
         String mail_string = getIntent().getExtras().getString("mail");
         user_nm.setText(name_string);
         user_ml.setText(mail_string);
-        Toast.makeText(Home.this, "Wel come " + temp,
+        Toast.makeText(Home.this, "Welcome " + temp,
                 Toast.LENGTH_LONG).show();
 
 
-//        Button bb = (Button) findViewById(R.id.sample);
-//
-//        bb.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+
+        ImageView record = (ImageView) findViewById(R.id.job_plus);
+        record.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Home.this, take_printout_online_printers.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -112,6 +110,8 @@ public class Home extends AppCompatActivity
             firebaseAuth.getInstance().signOut();
             Intent intent = new Intent(Home.this, MainActivity.class);
             startActivity(intent);
+            Toast.makeText(Home.this, "Successfully Logged out...",
+                    Toast.LENGTH_LONG).show();
             finish();
         }
 

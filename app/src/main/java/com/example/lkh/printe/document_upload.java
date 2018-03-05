@@ -18,7 +18,7 @@ public class document_upload extends AppCompatActivity {
         setContentView(R.layout.activity_document_upload);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         TextView show;
         show = (TextView) findViewById(R.id.textView2);
         String item = getIntent().getExtras().getString("selected-item");
