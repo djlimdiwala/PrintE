@@ -18,6 +18,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class login extends AppCompatActivity {
 
@@ -25,13 +30,14 @@ public class login extends AppCompatActivity {
     private EditText email;
     private EditText passwd;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference db_reference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
         firebaseAuth = FirebaseAuth.getInstance();
+
     }
 
 
@@ -47,11 +53,33 @@ public class login extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         if (task.isSuccessful()) {
-                            Toast.makeText(login.this, "Login successful", Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(login.this, Home.class);
-                            i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
-                            startActivity(i);
-                            finish();
+
+                            db_reference = FirebaseDatabase.getInstance().getReference();
+                            String id1 = firebaseAuth.getCurrentUser().getUid();
+                            db_reference.child(id1).addListenerForSingleValueEvent(
+                                    new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                            save_user_information user = dataSnapshot.getValue(save_user_information.class);
+
+
+                                            Intent intent = new Intent(login.this, Home.class);
+                                            intent.putExtra("Email", user.email);
+                                            intent.putExtra("name", user.name);
+                                            startActivity(intent);
+                                            finish();
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            email.setText("");
+                                            passwd.setText("");
+                                            Toast.makeText(login.this, "Connection lost...Try again",
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                    });
                         }
                         else {
                             Log.e("ERROR", task.getException().toString());

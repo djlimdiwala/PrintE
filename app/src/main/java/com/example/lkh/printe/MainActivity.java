@@ -22,8 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
 
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference db_reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,38 +29,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        firebaseAuth = FirebaseAuth.getInstance();
         Button log_in = (Button) findViewById(R.id.login);
         Button register = (Button) findViewById(R.id.register);
 
 
-        if (firebaseAuth.getCurrentUser() != null) {
-            db_reference = FirebaseDatabase.getInstance().getReference();
-            String id1 = firebaseAuth.getCurrentUser().getUid();
 
-            db_reference.child(id1).addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                            save_user_information user = dataSnapshot.getValue(save_user_information.class);
-
-
-                            Intent intent = new Intent(MainActivity.this, Home.class);
-                            intent.putExtra("mail", user.email);
-                            intent.putExtra("name", user.name);
-                            startActivity(intent);
-                            finish();
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    });
-
-
-        }
 
         log_in.setOnClickListener(new View.OnClickListener() {
 
@@ -84,18 +55,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

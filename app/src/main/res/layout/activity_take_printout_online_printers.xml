@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.lkh.printe.Home">
+    tools:context="com.example.lkh.printe.take_printout_online_printers">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:id="@+id/appBarLayout3">
+        android:id="@+id/appBarLayout4">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
 
 
             <TextView
@@ -25,44 +25,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="cursive"
+                android:fontFamily="serif"
                 android:gravity="center"
-                android:text="PrintE"
+                android:text="Available printers..."
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="30sp"
                 android:textStyle="bold" />
-
-
-            <ImageButton
-                android:id="@+id/hamb"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="right"
-                android:layout_marginLeft="0dp"
-                android:background="@null"
-                android:layout_weight="0.04"
-                android:foregroundGravity="center"
-                android:scaleType="fitCenter"
-                android:visibility="visible"
-                app:srcCompat="@drawable/bell" />
-
-
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
+    <ListView
+        android:id="@+id/printers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="39dp"
-        android:layout_marginEnd="29dp"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
-
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/appBarLayout4"
+        android:clickable="true"
+        android:focusable="true" />
 
 </RelativeLayout>

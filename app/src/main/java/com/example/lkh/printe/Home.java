@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,8 +37,8 @@ public class Home extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(Home.this, take_printout_online_printers.class);
+                startActivity(intent);
             }
         });
 
@@ -53,10 +54,24 @@ public class Home extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         TextView user_nm = (TextView) header.findViewById(R.id.user_name);
         TextView user_ml = (TextView) header.findViewById(R.id.user_mail);
-        String name_string = "Hello " + getIntent().getExtras().getString("name");
+        String temp = getIntent().getExtras().getString("name");
+        String name_string = "Hello " + temp;
         String mail_string = getIntent().getExtras().getString("mail");
         user_nm.setText(name_string);
         user_ml.setText(mail_string);
+        Toast.makeText(Home.this, "Wel come " + temp,
+                Toast.LENGTH_LONG).show();
+
+
+//        Button bb = (Button) findViewById(R.id.sample);
+//
+//        bb.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
     }
 
 
