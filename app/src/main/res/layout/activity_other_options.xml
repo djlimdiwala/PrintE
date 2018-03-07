@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lkh.printe.other_options">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:id="@+id/appBarLayout6">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+
+        <TextView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="serif"
+            android:gravity="center"
+            android:text="Other options.."
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="30sp" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <EditText
+        android:id="@+id/copies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="67dp"
+        android:width="320dp"
+        android:hint="No. of Copies"
+        android:digits="0123456789"
+        android:inputType="number"
+        android:textAlignment="center" />
+
+    <CheckBox
+        android:id="@+id/double_sided"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/copies"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:text="Double-sided" />
+    <RadioGroup
+        android:layout_height="50dp"
+        android:layout_width="320dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/double_sided"
+        android:layout_alignStart="@+id/copies"
+        android:orientation='horizontal'
+        android:gravity="center"
+        android:checkedButton="@+id/bnw"
+        android:id="@+id/radioGroup" >
+
+
+
+        <RadioButton
+            android:id="@+id/bnw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:foregroundGravity="center"
+            android:text="BnW" />
+        <RadioButton
+            android:id="@+id/color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:foregroundGravity="center"
+            android:text="Coloured" />
+
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="42dp"
+        android:onClick="submit_job"
+        android:text="SUBMIT"
+        android:textSize="24sp" />
+
+
+
+
+</RelativeLayout>

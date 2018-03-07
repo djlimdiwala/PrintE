@@ -30,8 +30,7 @@
                 android:text="Available printers..."
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textSize="30sp" />
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>

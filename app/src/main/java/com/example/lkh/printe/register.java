@@ -125,7 +125,7 @@ public class register extends AppCompatActivity {
                                 String id1 = firebaseAuth.getCurrentUser().getUid();
 
                                 save_user_information save_user = new save_user_information(name, Email, m_no, h_no, r_no);
-                                db_reference.child(id1).setValue(save_user);
+                                db_reference.child("users").child(id1).setValue(save_user);
 
 
                                 Intent i = new Intent(register.this, login.class);

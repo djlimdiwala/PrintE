@@ -77,7 +77,7 @@
         android:width="130dp"
         android:ems="10"
         android:hint="Hostel"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:textAlignment="center" />
 
     <EditText
