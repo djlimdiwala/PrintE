@@ -7,32 +7,43 @@
     tools:context="com.example.lkh.printe.take_printout_online_printers">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        android:id="@+id/appBarLayout4">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+        <TextView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:fontFamily="serif"
+            android:gravity="left"
+            android:text="Available printers..."
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="30sp" />
 
+        <ImageButton
+            android:id="@+id/refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="right"
+            android:foregroundGravity="right"
+            android:background="@color/purewhite"
+            app:srcCompat="@drawable/refresh" />
 
-            <TextView
-                android:id="@+id/logo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="serif"
-                android:gravity="center"
-                android:text="Available printers..."
-                android:textAlignment="center"
-                android:textColor="@android:color/black"
-                android:textSize="30sp" />
-        </android.support.v7.widget.Toolbar>
-
+            </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
     <ListView

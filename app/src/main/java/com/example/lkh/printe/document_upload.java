@@ -14,6 +14,7 @@ public class document_upload extends AppCompatActivity {
 
 
     private String printer_location;
+    private String shop_ID;
 
 
     @Override
@@ -25,6 +26,7 @@ public class document_upload extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         printer_location = getIntent().getExtras().getString("selected-item");
+        shop_ID = getIntent().getExtras().getString("shop_ID");
 
 
 
@@ -46,7 +48,9 @@ public class document_upload extends AppCompatActivity {
         Intent intent = new Intent(document_upload.this, other_options.class);
         intent.putExtra("printer_location",printer_location);
         intent.putExtra("document_link", "dummy-link");
+        intent.putExtra("shop_ID",shop_ID);
         startActivity(intent);
+        finish();
     }
 
 }

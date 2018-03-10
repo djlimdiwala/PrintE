@@ -27,6 +27,7 @@ public class other_options extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference db_reference;
     private String document_link;
+    private String shop_ID;
     private String printer_location;
     private EditText no_copies;
     private RadioGroup rg_type;
@@ -47,6 +48,7 @@ public class other_options extends AppCompatActivity {
         db_reference = FirebaseDatabase.getInstance().getReference();
         document_link = getIntent().getExtras().getString("document_link");
         printer_location = getIntent().getExtras().getString("printer_location");
+        shop_ID = getIntent().getExtras().getString("shop_ID");
 
         rg_type = (RadioGroup) findViewById(R.id.radioGroup);
         no_copies = (EditText) findViewById(R.id.copies);
@@ -114,7 +116,7 @@ public class other_options extends AppCompatActivity {
 //        Log.e("coloured",coloured);
 
 
-//        final ProgressDialog progressDialog = ProgressDialog.show(other_options.this, "Please wait...", "Confirming....", true);
+        final ProgressDialog progressDialog = ProgressDialog.show(other_options.this, "Please wait...", "Confirming....", true);
 
         String user_id = firebaseAuth.getCurrentUser().getUid();
 //        Log.e("id", user_id);
@@ -123,9 +125,11 @@ public class other_options extends AppCompatActivity {
 
 
         db_reference.child("job_ids").setValue(String.valueOf(Integer.valueOf(job_id)+ 1 ));
-        save_job_information save_job = new save_job_information(job_id,user_id,printer_location,double_checked,copies,document_link, "dummy");
+        save_job_information save_job = new save_job_information(job_id,user_id,shop_ID,double_checked,copies, coloured, document_link, "dummy");
         db_reference.child("jobs").child(job_id).setValue(save_job);
 
+        progressDialog.dismiss();
+        Toast.makeText(other_options.this, "Successfully Submitted....", Toast.LENGTH_LONG).show();
 
     }
 

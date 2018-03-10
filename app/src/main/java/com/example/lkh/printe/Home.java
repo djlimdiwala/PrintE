@@ -67,6 +67,7 @@ public class Home extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent = new Intent(Home.this, take_printout_online_printers.class);
                 startActivity(intent);
+
             }
         });
 
