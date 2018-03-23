@@ -22,6 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class other_options extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
@@ -35,6 +38,7 @@ public class other_options extends AppCompatActivity {
     private RadioButton type_status;
     private String coloured;
     private String job_id;
+    private String document_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class other_options extends AppCompatActivity {
         document_link = getIntent().getExtras().getString("document_link");
         printer_location = getIntent().getExtras().getString("printer_location");
         shop_ID = getIntent().getExtras().getString("shop_ID");
+        document_name = getIntent().getExtras().getString("document_name");
 
         rg_type = (RadioGroup) findViewById(R.id.radioGroup);
         no_copies = (EditText) findViewById(R.id.copies);
@@ -71,8 +76,6 @@ public class other_options extends AppCompatActivity {
                 {
                     coloured = "1";
                 }
-
-
 
             }
 
@@ -104,6 +107,11 @@ public class other_options extends AppCompatActivity {
         String copies = no_copies.getText().toString();
         Log.e("copies",copies);
         String double_checked;
+        Calendar c = Calendar.getInstance();
+        Log.e("time",c.getTime().toString());
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = df.format(c.getTime());
+        Log.e("full--",formattedDate);
         if (double_sided.isChecked())
         {
             double_checked = "1";
@@ -113,19 +121,16 @@ public class other_options extends AppCompatActivity {
             double_checked = "0";
         }
         Log.e("double_checked",double_checked);
-//        Log.e("coloured",coloured);
-
 
         final ProgressDialog progressDialog = ProgressDialog.show(other_options.this, "Please wait...", "Confirming....", true);
 
         String user_id = firebaseAuth.getCurrentUser().getUid();
-//        Log.e("id", user_id);
 
 
 
 
         db_reference.child("job_ids").setValue(String.valueOf(Integer.valueOf(job_id)+ 1 ));
-        save_job_information save_job = new save_job_information(job_id,user_id,shop_ID,double_checked,copies, coloured, document_link, "dummy");
+        save_job_information save_job = new save_job_information(job_id,user_id,shop_ID,double_checked,copies, coloured, document_link, document_name, formattedDate, "-99");
         db_reference.child("jobs").child(job_id).setValue(save_job);
 
         progressDialog.dismiss();

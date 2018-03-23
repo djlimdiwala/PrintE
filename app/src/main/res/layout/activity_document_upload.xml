@@ -24,17 +24,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="serif"
+                android:fontFamily="@font/convergence"
                 android:gravity="center"
                 android:text="Upload document..."
                 android:textAlignment="center"
-                android:textColor="@android:color/black"
+                android:textColor="#a80101"
                 android:textSize="30sp" />
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_document_upload" />
 
     <TextView
         android:id="@+id/path"
@@ -44,7 +42,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="91dp"
         android:width="100dp"
-        android:height="50dp" />
+        android:height="50dp"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/browse"
@@ -54,6 +53,28 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="Browse" />
+
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center_horizontal"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/textViewStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/go_next"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="25dp"
+        android:text="No file selected"
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
     <Button
         android:id="@+id/go_next"

@@ -22,11 +22,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference db_reference;
     boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -36,8 +42,8 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-
+        db_reference = FirebaseDatabase.getInstance().getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -103,6 +109,34 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_edit_profile) {
+
+
+            String id1 = firebaseAuth.getCurrentUser().getUid();
+            db_reference.child("users").child(id1).addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            save_user_information user = dataSnapshot.getValue(save_user_information.class);
+
+
+                            Intent intent = new Intent(Home.this, Edit_profile.class);
+                            intent.putExtra("name",user.name);
+                            intent.putExtra("mail", user.email);
+                            intent.putExtra("mobile", user.mobile);
+                            intent.putExtra("hostel",user.h_no);
+                            intent.putExtra("room",user.r_no);
+                            startActivity(intent);
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Toast.makeText(Home.this, "Connection lost...Try again",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+
             // Handle the camera action
         } else if (id == R.id.nav_help) {
 

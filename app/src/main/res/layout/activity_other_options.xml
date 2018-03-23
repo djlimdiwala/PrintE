@@ -20,17 +20,17 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" >
 
 
-        <TextView
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="serif"
-            android:gravity="center"
-            android:text="Other options.."
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="30sp" />
+            <TextView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/convergence"
+                android:gravity="center"
+                android:text="Other options.."
+                android:textAlignment="center"
+                android:textColor="#a80101"
+                android:textSize="30sp" />
 
         </android.support.v7.widget.Toolbar>
 

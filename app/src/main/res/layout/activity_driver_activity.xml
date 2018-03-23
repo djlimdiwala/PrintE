@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.example.lkh.printe.Driver_activity">
 
 
@@ -19,6 +20,7 @@
         android:fontFamily="cursive"
         android:text="PrintE"
         android:textAlignment="center"
+        android:textColor="#a80101"
         android:textSize="80sp"
         android:textStyle="bold" />
 </RelativeLayout>
