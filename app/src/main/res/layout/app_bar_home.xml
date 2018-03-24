@@ -41,11 +41,12 @@
                 android:layout_gravity="right"
                 android:layout_marginLeft="0dp"
                 android:background="@null"
+                android:layout_marginRight="10dp"
                 android:layout_weight="0.04"
                 android:foregroundGravity="center"
                 android:scaleType="fitCenter"
                 android:visibility="visible"
-                app:srcCompat="@drawable/bell" />
+                app:srcCompat="@drawable/noti" />
 
 
         </android.support.v7.widget.Toolbar>

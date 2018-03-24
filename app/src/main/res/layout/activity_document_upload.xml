@@ -26,7 +26,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/convergence"
                 android:gravity="center"
-                android:text="Upload document..."
+                android:text="Upload Document"
                 android:textAlignment="center"
                 android:textColor="#a80101"
                 android:textSize="30sp" />

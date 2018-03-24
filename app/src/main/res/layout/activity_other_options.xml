@@ -27,7 +27,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/convergence"
                 android:gravity="center"
-                android:text="Other options.."
+                android:text="Other Options"
                 android:textAlignment="center"
                 android:textColor="#a80101"
                 android:textSize="30sp" />

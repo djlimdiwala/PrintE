@@ -26,10 +26,10 @@
                 android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_gravity="center"
                 android:fontFamily="convergence"
-                android:gravity="left"
-                android:text="Available printers..."
+                android:gravity="center"
+                android:text="Available Printers"
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent"
                 android:textSize="30sp" />
@@ -40,7 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="right"
-            android:foregroundGravity="right"
+            android:foregroundGravity="center"
+            android:layout_marginRight="10dp"
             android:background="@color/purewhite"
             app:srcCompat="@drawable/refresh" />
 
