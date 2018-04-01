@@ -3,6 +3,7 @@ package com.example.lkh.printe;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,12 +16,17 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,9 +42,12 @@ public class other_options extends AppCompatActivity {
     private RadioGroup rg_type;
     private CheckBox double_sided;
     private RadioButton type_status;
-    private String coloured;
+    private String coloured = "0";
     private String job_id;
     private String document_name;
+    private String full_name;
+
+    StorageReference mStorageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +59,12 @@ public class other_options extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         db_reference = FirebaseDatabase.getInstance().getReference();
+        mStorageReference = FirebaseStorage.getInstance().getReference();
         document_link = getIntent().getExtras().getString("document_link");
         printer_location = getIntent().getExtras().getString("printer_location");
         shop_ID = getIntent().getExtras().getString("shop_ID");
         document_name = getIntent().getExtras().getString("document_name");
+        full_name = getIntent().getExtras().getString("full_link");
 
         rg_type = (RadioGroup) findViewById(R.id.radioGroup);
         no_copies = (EditText) findViewById(R.id.copies);
@@ -135,7 +146,31 @@ public class other_options extends AppCompatActivity {
 
         progressDialog.dismiss();
         Toast.makeText(other_options.this, "Successfully Submitted....", Toast.LENGTH_LONG).show();
+       finish();
 
     }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+
+            StorageReference desertRef = mStorageReference.child(full_name);
+
+            desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // File deleted successfully
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Uh-oh, an error occurred!
+                }
+            });
+
+    }
+
 
 }

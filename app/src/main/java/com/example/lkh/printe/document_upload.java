@@ -3,6 +3,7 @@ package com.example.lkh.printe;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
+import java.net.URI;
 
 public class document_upload extends AppCompatActivity implements View.OnClickListener {
 
@@ -43,8 +45,10 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
     private String document_name;
     private FirebaseAuth firebaseAuth;
     private TextView path_name;
+    private String full_name;
     private int flag1;
-    private int flag2;
+    private Uri uri;
+    private String path;
 
 
     final static int PICK_PDF_CODE = 2342;
@@ -71,7 +75,6 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
 
         path_name = (TextView) findViewById(R.id.path);
         flag1 = 0;
-        flag2 = 0;
 
         mStorageReference = FirebaseStorage.getInstance().getReference();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(firebaseAuth.getCurrentUser().getUid().toString() + "/");
@@ -120,10 +123,13 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
                 //uploading the file
                 {
 
-                    Uri uri= data.getData();
+                    uri= data.getData();
                     document_name = getFileName(uri);
                     Log.e("name",getFileName(uri));
-                    uploadFile(data.getData());
+//                    uploadFile(data.getData());
+                    flag1 = 1;
+                    textViewStatus.setText("Selected...");
+
                 }
             }else{
                 Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
@@ -136,7 +142,8 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
 
     private void uploadFile(Uri data) {
         progressBar.setVisibility(View.VISIBLE);
-        StorageReference sRef = mStorageReference.child(firebaseAuth.getCurrentUser().getUid().toString() + "/" + document_name + "_" + System.currentTimeMillis() + ".pdf");
+        full_name = firebaseAuth.getCurrentUser().getUid().toString() + "/" + document_name + "_" + System.currentTimeMillis() + ".pdf";
+        StorageReference sRef = mStorageReference.child(full_name);
         sRef.putFile(data)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @SuppressWarnings("VisibleForTests")
@@ -145,7 +152,7 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
                         progressBar.setVisibility(View.GONE);
                         path_name.setText(document_name);
                         textViewStatus.setText("File Uploaded Successfully");
-                        flag1 = 1;
+
 
                         document_link = taskSnapshot.getDownloadUrl().toString();
                         Upload upload = new Upload("dummy", taskSnapshot.getDownloadUrl().toString());
@@ -192,11 +199,13 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
     {
         if (flag1 == 1)
         {
+            uploadFile(uri);
             Intent intent = new Intent(document_upload.this, other_options.class);
             intent.putExtra("printer_location",printer_location);
             intent.putExtra("document_name", document_name);
             intent.putExtra("document_link", document_link);
             intent.putExtra("shop_ID",shop_ID);
+            intent.putExtra("full_link",full_name);
             startActivity(intent);
             finish();
         }
@@ -215,13 +224,18 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
             try {
                 if (cursor != null && cursor.moveToFirst()) {
                     result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    Log.e("path1",result);
                 }
             } finally {
                 cursor.close();
             }
         }
+
         if (result == null) {
             result = uri.getPath();
+            Log.e("path2",result);
+            path = result;
+ 
             int cut = result.lastIndexOf('/');
             if (cut != -1) {
                 result = result.substring(cut + 1);
@@ -229,5 +243,10 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
         }
         return result;
     }
+
+
+
+
+
 
 }
