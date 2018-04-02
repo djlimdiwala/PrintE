@@ -67,40 +67,34 @@ public class register extends AppCompatActivity {
             flag = 0;
             user_name.setError("Enter First Name");
             user_name.requestFocus();
-            Log.e("11","11");
         }
         else if (!email_validate(Email))
         {
             flag = 0;
             email_text.setError("Invalid Email");
             email_text.requestFocus();
-            Log.e("22","22");
         }
         else if (!mobile_validate(m_no))
         {
             flag = 0;
-            Log.e("33","33");
             mobile_no.setError("Invalid mobile");
             mobile_no.requestFocus();
         }
         else if (pswd.length() == 0)
         {
             flag = 0;
-            Log.e("44","44");
             pass_word.setError("Enter password");
             pass_word.requestFocus();
         }
         else if (h_no.length() == 0)
         {
             flag = 0;
-            Log.e("44","44");
             hostel_no.setError("Enter hostel no.");
             hostel_no.requestFocus();
         }
         else if (r_no.length() == 0)
         {
             flag = 0;
-            Log.e("55","55");
             room_no.setError("Enter room no.");
             room_no.requestFocus();
         }

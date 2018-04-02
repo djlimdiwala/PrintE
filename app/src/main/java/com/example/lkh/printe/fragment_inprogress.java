@@ -44,7 +44,7 @@ public class fragment_inprogress extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_tab, container, false);
 
@@ -83,6 +83,7 @@ public class fragment_inprogress extends Fragment {
                                 intent.putExtra("location",user.h_no);
                                 intent.putExtra("owner",user.name);
                                 intent.putExtra("contact",user.mobile);
+                                intent.putExtra("l_link",values_0.get(pos).document_link);
                                 intent.putExtra("copies",values_0.get(pos).copies);
 
 
@@ -146,7 +147,7 @@ public class fragment_inprogress extends Fragment {
                 displayJobs_0.clear();
                 for (DataSnapshot single : dataSnapshot.getChildren()) {
                     save_job_information job = single.getValue(save_job_information.class);
-                    if (job.finished_on.equals("-99"))
+                    if (job.finished_on.equals("-99") && job.user_id.equals(firebaseAuth.getCurrentUser().getUid()))
                     {
                         displayJobs_0.add(job.document_name);
                         values_0.add(job);

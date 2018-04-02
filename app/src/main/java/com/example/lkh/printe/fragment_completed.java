@@ -152,7 +152,7 @@ public class fragment_completed extends Fragment
                 for (DataSnapshot single : dataSnapshot.getChildren()) {
 
                     save_job_information job = single.getValue(save_job_information.class);
-                    if (!job.finished_on.equals("-99"))
+                    if (!job.finished_on.equals("-99") && job.user_id.equals(firebaseAuth.getCurrentUser().getUid()))
                     {
                         displayJobs_1.add(job.document_name);
                         values_1.add(job);

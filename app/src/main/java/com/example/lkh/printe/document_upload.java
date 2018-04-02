@@ -1,6 +1,7 @@
 package com.example.lkh.printe;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.pdf.PdfDocument;
@@ -26,8 +27,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -41,7 +45,7 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
 
     private String printer_location;
     private String shop_ID;
-    private String document_link;
+    public static String document_link = "";
     private String document_name;
     private FirebaseAuth firebaseAuth;
     private TextView path_name;
@@ -49,7 +53,6 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
     private int flag1;
     private Uri uri;
     private String path;
-
 
     final static int PICK_PDF_CODE = 2342;
 
@@ -79,11 +82,11 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
         mStorageReference = FirebaseStorage.getInstance().getReference();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(firebaseAuth.getCurrentUser().getUid().toString() + "/");
 
-        //getting the views
+
         textViewStatus = (TextView) findViewById(R.id.textViewStatus);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
-        //attaching listeners to views
+
         findViewById(R.id.browse).setOnClickListener(this);
 
 
@@ -126,7 +129,7 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
                     uri= data.getData();
                     document_name = getFileName(uri);
                     Log.e("name",getFileName(uri));
-//                    uploadFile(data.getData());
+                    uploadFile(data.getData());
                     flag1 = 1;
                     textViewStatus.setText("Selected...");
 
@@ -142,7 +145,11 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
 
     private void uploadFile(Uri data) {
         progressBar.setVisibility(View.VISIBLE);
-        full_name = firebaseAuth.getCurrentUser().getUid().toString() + "/" + document_name + "_" + System.currentTimeMillis() + ".pdf";
+
+        String[] temp = document_name.split(".pdf");
+
+
+        full_name = firebaseAuth.getCurrentUser().getUid().toString() + "/" + temp[0] + "_" + System.currentTimeMillis() + ".pdf";
         StorageReference sRef = mStorageReference.child(full_name);
         sRef.putFile(data)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -152,9 +159,8 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
                         progressBar.setVisibility(View.GONE);
                         path_name.setText(document_name);
                         textViewStatus.setText("File Uploaded Successfully");
-
-
                         document_link = taskSnapshot.getDownloadUrl().toString();
+
                         Upload upload = new Upload("dummy", taskSnapshot.getDownloadUrl().toString());
                         mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);
                     }
@@ -171,8 +177,10 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
                     public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                         double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
                         textViewStatus.setText((int) progress + "% Uploading...");
+
                     }
                 });
+
 
     }
 
@@ -195,18 +203,18 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
         }
 
     }
-    public void go_next (View v)
-    {
+    public void go_next (View v) throws InterruptedException {
         if (flag1 == 1)
         {
-            uploadFile(uri);
+
             Intent intent = new Intent(document_upload.this, other_options.class);
             intent.putExtra("printer_location",printer_location);
             intent.putExtra("document_name", document_name);
-            intent.putExtra("document_link", document_link);
+            intent.putExtra("document_lin", document_link);
             intent.putExtra("shop_ID",shop_ID);
             intent.putExtra("full_link",full_name);
             startActivity(intent);
+//            Thread.sleep(8000);
             finish();
         }
         else
@@ -225,6 +233,7 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
                 if (cursor != null && cursor.moveToFirst()) {
                     result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
                     Log.e("path1",result);
+
                 }
             } finally {
                 cursor.close();

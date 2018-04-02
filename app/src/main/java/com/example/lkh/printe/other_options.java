@@ -35,7 +35,7 @@ public class other_options extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference db_reference;
-    private String document_link;
+    private String document_link = "";
     private String shop_ID;
     private String printer_location;
     private EditText no_copies;
@@ -60,7 +60,8 @@ public class other_options extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         db_reference = FirebaseDatabase.getInstance().getReference();
         mStorageReference = FirebaseStorage.getInstance().getReference();
-        document_link = getIntent().getExtras().getString("document_link");
+        document_link = getIntent().getExtras().getString("document_lin");
+//        Log.e("fff",document_link.toString());
         printer_location = getIntent().getExtras().getString("printer_location");
         shop_ID = getIntent().getExtras().getString("shop_ID");
         document_name = getIntent().getExtras().getString("document_name");

@@ -209,9 +209,10 @@
         android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/timeee"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="14dp"
+        android:layout_marginEnd="47dp"
         android:text="CANCEL" />
 
     <TextView
@@ -223,6 +224,16 @@
         android:layout_marginEnd="14dp"
         android:text=""
         android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/view_doc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/cancel"
+        android:layout_alignBottom="@+id/cancel"
+        android:layout_toStartOf="@+id/timeee"
+        android:onClick="show_doc"
+        android:text="View document" />
 
 
 </RelativeLayout>
