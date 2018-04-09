@@ -50,7 +50,7 @@ public class login extends AppCompatActivity {
 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
+
 
                         if (task.isSuccessful()) {
 
@@ -64,6 +64,8 @@ public class login extends AppCompatActivity {
                                             save_user_information user = dataSnapshot.getValue(save_user_information.class);
 
 
+
+                                            progressDialog.dismiss();
                                             Intent intent = new Intent(login.this, Home.class);
                                             intent.putExtra("mail", user.email);
                                             intent.putExtra("name", user.name);
@@ -83,6 +85,7 @@ public class login extends AppCompatActivity {
                         }
                         else {
                             Log.e("ERROR", task.getException().toString());
+                            progressDialog.dismiss();
                             Toast.makeText(login.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
 
                         }

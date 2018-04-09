@@ -36,8 +36,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.tom_roush.pdfbox.pdmodel.PDDocument;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 
 public class document_upload extends AppCompatActivity implements View.OnClickListener {
@@ -53,6 +55,7 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
     private int flag1;
     private Uri uri;
     private String path;
+    private String pages = "Contact shop";
 
     final static int PICK_PDF_CODE = 2342;
 
@@ -127,8 +130,12 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
                 {
 
                     uri= data.getData();
-                    document_name = getFileName(uri);
-                    Log.e("name",getFileName(uri));
+                    try {
+                        document_name = getFileName(uri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+//                    Log.e("name",getFileName(uri));
                     uploadFile(data.getData());
                     flag1 = 1;
                     textViewStatus.setText("Selected...");
@@ -213,6 +220,7 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
             intent.putExtra("document_lin", document_link);
             intent.putExtra("shop_ID",shop_ID);
             intent.putExtra("full_link",full_name);
+            intent.putExtra("pages",pages);
             startActivity(intent);
 //            Thread.sleep(8000);
             finish();
@@ -225,7 +233,7 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    public String getFileName(Uri uri) {
+    public String getFileName(Uri uri) throws IOException {
         String result = null;
         if (uri.getScheme().equals("content")) {
             Cursor cursor = getContentResolver().query(uri, null, null, null, null);
@@ -244,6 +252,11 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
             result = uri.getPath();
             Log.e("path2",result);
             path = result;
+            PDDocument myDocument = PDDocument.load(new File(path));
+            int numPages = myDocument.getNumberOfPages();
+            Log.e("No. of pages",Integer.toString(numPages));
+            pages = Integer.toString(numPages);
+            Log.e("No.","sayali");
  
             int cut = result.lastIndexOf('/');
             if (cut != -1) {

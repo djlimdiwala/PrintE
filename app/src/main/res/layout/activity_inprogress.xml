@@ -19,16 +19,16 @@
 
             <TextView
                 android:id="@+id/jobID"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="JOB ID" />
 
             <TextView
                 android:id="@+id/jobID_value"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="" />
@@ -41,16 +41,16 @@
 
             <TextView
                 android:id="@+id/document_name"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Document Name" />
 
             <TextView
                 android:id="@+id/document_name_value"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="" />
@@ -62,16 +62,16 @@
 
             <TextView
                 android:id="@+id/printer_location"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Printer Location" />
 
             <TextView
                 android:id="@+id/printer_location_value"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="" />
@@ -83,8 +83,8 @@
 
             <TextView
                 android:id="@+id/Owner_name"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center"
@@ -93,8 +93,8 @@
 
             <TextView
                 android:id="@+id/Owner_name_value"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center"
@@ -110,8 +110,8 @@
 
             <TextView
                 android:id="@+id/Owner_contact"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center"
@@ -120,8 +120,8 @@
 
             <TextView
                 android:id="@+id/Owner_contact_value"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center"
@@ -136,8 +136,8 @@
 
             <TextView
                 android:id="@+id/copies"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center"
@@ -146,8 +146,8 @@
 
             <TextView
                 android:id="@+id/copies_value"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center"
@@ -161,8 +161,8 @@
 
             <TextView
                 android:id="@+id/color"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center"
@@ -171,8 +171,8 @@
 
             <TextView
                 android:id="@+id/color_value"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center"
@@ -185,8 +185,8 @@
 
             <TextView
                 android:id="@+id/double_name"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center"
@@ -195,13 +195,39 @@
 
             <TextView
                 android:id="@+id/double_value"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center"
                 android:text="" />
         </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="51dp">
+
+            <TextView
+                android:id="@+id/port1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:gravity="center"
+                android:text="Portrait" />
+
+
+            <TextView
+                android:id="@+id/port1_value"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:gravity="center"
+                android:text="" />
+        </TableRow>
+
 
     </TableLayout>
 
@@ -231,7 +257,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/cancel"
         android:layout_alignBottom="@+id/cancel"
-        android:layout_toStartOf="@+id/timeee"
+        android:layout_marginEnd="40dp"
+        android:layout_toStartOf="@+id/cancel"
         android:onClick="show_doc"
         android:text="View document" />
 

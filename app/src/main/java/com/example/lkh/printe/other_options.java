@@ -43,9 +43,13 @@ public class other_options extends AppCompatActivity {
     private CheckBox double_sided;
     private RadioButton type_status;
     private String coloured = "0";
+    private String port = "1";
     private String job_id;
     private String document_name;
     private String full_name;
+    private RadioGroup orien;
+    private String pages = "Contact Shop";
+    String copies = "1";
 
     StorageReference mStorageReference;
 
@@ -66,6 +70,9 @@ public class other_options extends AppCompatActivity {
         shop_ID = getIntent().getExtras().getString("shop_ID");
         document_name = getIntent().getExtras().getString("document_name");
         full_name = getIntent().getExtras().getString("full_link");
+        pages = getIntent().getExtras().getString("pages");
+        orien = (RadioGroup) findViewById(R.id.radioGroup1);
+
 
         rg_type = (RadioGroup) findViewById(R.id.radioGroup);
         no_copies = (EditText) findViewById(R.id.copies);
@@ -87,6 +94,26 @@ public class other_options extends AppCompatActivity {
                 else
                 {
                     coloured = "1";
+                }
+
+            }
+
+        });
+
+        orien.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int selectedId = rg_type.getCheckedRadioButtonId();
+                type_status = (RadioButton) findViewById(selectedId);
+                String status = type_status.getText().toString();
+
+                Log.e("sta",status);
+                if (status.equals("Portrait"))
+                {
+                    port = "1";
+                }
+                else
+                {
+                    port = "0";
                 }
 
             }
@@ -116,7 +143,12 @@ public class other_options extends AppCompatActivity {
 
     public void submit_job (View v)
     {
-        String copies = no_copies.getText().toString();
+
+        copies = no_copies.getText().toString();
+        if (copies.equals(""))
+        {
+            copies = "1";
+        }
         Log.e("copies",copies);
         String double_checked;
         Calendar c = Calendar.getInstance();
@@ -142,7 +174,7 @@ public class other_options extends AppCompatActivity {
 
 
         db_reference.child("job_ids").setValue(String.valueOf(Integer.valueOf(job_id)+ 1 ));
-        save_job_information save_job = new save_job_information(job_id,user_id,shop_ID,double_checked,copies, coloured, document_link, document_name, formattedDate, "-99");
+        save_job_information save_job = new save_job_information(job_id,user_id,shop_ID,double_checked,copies, coloured, port, document_link, pages, document_name, formattedDate, "-99");
         db_reference.child("jobs").child(job_id).setValue(save_job);
 
         progressDialog.dismiss();

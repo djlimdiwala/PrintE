@@ -33,6 +33,8 @@ public class fragment_inprogress extends Fragment {
 
     private ListView lv;
     private ArrayAdapter<String> adapter_0;
+    private ArrayAdapter<String> adapter_01;
+    private List<String> display_hostel;
 
 
     private String new_time;
@@ -59,7 +61,12 @@ public class fragment_inprogress extends Fragment {
         displayJobs_0 = new ArrayList<>();
         adapter_0 = new ArrayAdapter<String>(getActivity(), R.layout.job_list, R.id.tV, displayJobs_0);
 
-       refresh_list_0();
+        display_hostel = new ArrayList<>();
+        adapter_01 = new ArrayAdapter<String>(getActivity(), R.layout.job_list, R.id.t, display_hostel);
+
+
+
+        refresh_list_0();
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -89,20 +96,43 @@ public class fragment_inprogress extends Fragment {
 
                                 if (values_0.get(pos).coloured.equals("1"))
                                 {
+                                    intent.putExtra("cld1","1");
                                     intent.putExtra("cld","YES");
                                 }
                                 else
                                 {
+                                    intent.putExtra("cld1","0");
                                     intent.putExtra("cld","NO");
                                 }
+
                                 if (values_0.get(pos).double_sided.equals("1"))
                                 {
                                     intent.putExtra("ds","YES");
+                                    intent.putExtra("ds1","1");
                                 }
                                 else
                                 {
                                     intent.putExtra("ds","NO");
+                                    intent.putExtra("ds1","0");
                                 }
+
+                                if (values_0.get(pos).orientation.equals("1"))
+                                {
+                                    intent.putExtra("port","YES");
+                                    intent.putExtra("port1","1");
+                                }
+                                else
+                                {
+                                    intent.putExtra("port","NO");
+                                    intent.putExtra("port1","0");
+                                }
+
+
+                                intent.putExtra("u_id",values_0.get(pos).user_id);
+                                intent.putExtra("s_id",values_0.get(pos).shop_id);
+                                intent.putExtra("creat",values_0.get(pos).created_on);
+                                intent.putExtra("end",values_0.get(pos).finished_on);
+                                intent.putExtra("pag",values_0.get(pos).pages);
 
                                 change_format(values_0.get(pos).created_on);
                                 intent.putExtra("time",new_date + "   " + new_time);
@@ -145,12 +175,14 @@ public class fragment_inprogress extends Fragment {
                 int i = 0;
                 values_0.clear();
                 displayJobs_0.clear();
+                display_hostel.clear();
                 for (DataSnapshot single : dataSnapshot.getChildren()) {
                     save_job_information job = single.getValue(save_job_information.class);
                     if (job.finished_on.equals("-99") && job.user_id.equals(firebaseAuth.getCurrentUser().getUid()))
                     {
                         displayJobs_0.add(job.document_name);
                         values_0.add(job);
+                        display_hostel.add(job.pages + "pages");
                     }
 
                     i++;
@@ -160,6 +192,7 @@ public class fragment_inprogress extends Fragment {
 //                    Log.e("element",displayJobs_0.get(i));
 //                }
                 lv.setAdapter(adapter_0);
+//                lv.setAdapter(adapter_01);
             }
 
             @Override

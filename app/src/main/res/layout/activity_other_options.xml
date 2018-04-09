@@ -87,6 +87,37 @@
 
     </RadioGroup>
 
+    <RadioGroup
+        android:layout_height="50dp"
+        android:layout_width="320dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/radioGroup"
+        android:layout_alignStart="@+id/copies"
+        android:orientation='horizontal'
+        android:gravity="center"
+        android:checkedButton="@+id/pot"
+        android:id="@+id/radioGroup1" >
+
+
+
+        <RadioButton
+            android:id="@+id/land"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:foregroundGravity="center"
+            android:text="Landscape" />
+        <RadioButton
+            android:id="@+id/pot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:foregroundGravity="center"
+            android:text="Portrait" />
+
+
+    </RadioGroup>
+
     <Button
         android:id="@+id/submit"
         android:layout_width="150dp"
@@ -97,7 +128,6 @@
         android:onClick="submit_job"
         android:text="SUBMIT"
         android:textSize="24sp" />
-
 
 
 

@@ -95,6 +95,7 @@ public class fragment_completed extends Fragment
                                 {
                                     intent.putExtra("cld","NO");
                                 }
+
                                 if (values_1.get(pos).double_sided.equals("1"))
                                 {
                                     intent.putExtra("ds","YES");
@@ -103,6 +104,17 @@ public class fragment_completed extends Fragment
                                 {
                                     intent.putExtra("ds","NO");
                                 }
+
+                                if (values_1.get(pos).orientation.equals("1"))
+                                {
+                                    intent.putExtra("port","YES");
+                                }
+                                else
+                                {
+                                    intent.putExtra("port","NO");
+                                }
+
+
 
                                 change_format(values_1.get(pos).created_on);
                                 intent.putExtra("time",new_date + "   " + new_time);

@@ -16,6 +16,8 @@ public class save_job_information
     public String document_name;
     public String created_on;
     public String finished_on;
+    public String orientation;
+    public String pages;
 
     public save_job_information(){
 
@@ -24,7 +26,7 @@ public class save_job_information
 
 
 
-    public save_job_information(String job_id, String user_id, String shop_id, String double_sided, String copies, String coloured, String document_link, String document_name,String created_on, String finished_on) {
+    public save_job_information(String job_id, String user_id, String shop_id, String double_sided, String copies, String coloured, String orientation, String document_link, String pages, String document_name,String created_on, String finished_on) {
 
         this.job_id = job_id;
         this.user_id = user_id;
@@ -36,5 +38,7 @@ public class save_job_information
         this.document_name = document_name;
         this.created_on = created_on;
         this.finished_on = finished_on;
+        this.orientation = orientation;
+        this.pages = pages;
     }
 }

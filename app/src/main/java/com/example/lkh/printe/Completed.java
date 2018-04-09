@@ -17,6 +17,7 @@ public class Completed extends AppCompatActivity {
     private TextView dou_side;
     private TextView timee;
     private TextView ct;
+    private TextView por;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +34,7 @@ public class Completed extends AppCompatActivity {
         col = (TextView) findViewById(R.id.color_value);
         dou_side = (TextView) findViewById(R.id.double_value);
         ct = (TextView) findViewById(R.id.com);
+        por = (TextView) findViewById(R.id.port_value);
 
         timee.setText(getIntent().getExtras().getString("time"));
         JobID.setText(getIntent().getExtras().getString("jobID"));
@@ -45,6 +47,7 @@ public class Completed extends AppCompatActivity {
         dou_side.setText(getIntent().getExtras().getString("ds"));
         String temp = "Completed on\n" + getIntent().getExtras().getString("ctime");
         ct.setText(temp);
+        por.setText(getIntent().getExtras().getString("port"));
     }
 
 
