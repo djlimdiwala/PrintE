@@ -43,6 +43,7 @@ public class Inprogress extends AppCompatActivity {
     private TextView dou_side;
     private TextView timee;
     private String d_link;
+    private TextView price;
     public SharedPreferences preferences;
     public TextView por;
     private Button can;
@@ -82,6 +83,7 @@ public class Inprogress extends AppCompatActivity {
         ownername = (TextView) findViewById(R.id.Owner_name_value);
         owner_mobile = (TextView) findViewById(R.id.Owner_contact_value);
         no_copies = (TextView) findViewById(R.id.copies_value);
+        price = (TextView) findViewById(R.id.price_value);
         col = (TextView) findViewById(R.id.color_value);
         dou_side = (TextView) findViewById(R.id.double_value);
         d_link = getIntent().getExtras().getString("l_link");
@@ -113,6 +115,7 @@ public class Inprogress extends AppCompatActivity {
         ownername.setText(getIntent().getExtras().getString("owner"));
         owner_mobile.setText(getIntent().getExtras().getString("contact"));
         no_copies.setText(getIntent().getExtras().getString("copies"));
+        price.setText(getIntent().getExtras().getString("price"));
         col.setText(getIntent().getExtras().getString("cld"));
         dou_side.setText(getIntent().getExtras().getString("ds"));
         por.setText(getIntent().getExtras().getString("port"));
@@ -145,20 +148,9 @@ public class Inprogress extends AppCompatActivity {
 
                                 db_reference.child("jobs").child(j1).setValue(save_job);
 
-                                StorageReference desertRef = mStorageReference.child(d_link);
-
-                                desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        // File deleted successfully
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception exception) {
-                                        // Uh-oh, an error occurred!
-                                    }
-                                });
                                 dialog.cancel();
+                                Toast.makeText(Inprogress.this, "Cancelled successfully...", Toast.LENGTH_LONG).show();
+                                finish();
                             }
                         });
 

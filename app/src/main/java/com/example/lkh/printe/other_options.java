@@ -65,7 +65,6 @@ public class other_options extends AppCompatActivity {
         db_reference = FirebaseDatabase.getInstance().getReference();
         mStorageReference = FirebaseStorage.getInstance().getReference();
         document_link = getIntent().getExtras().getString("document_lin");
-//        Log.e("fff",document_link.toString());
         printer_location = getIntent().getExtras().getString("printer_location");
         shop_ID = getIntent().getExtras().getString("shop_ID");
         document_name = getIntent().getExtras().getString("document_name");
@@ -170,7 +169,18 @@ public class other_options extends AppCompatActivity {
 
         String user_id = firebaseAuth.getCurrentUser().getUid();
 
-
+        int price = 0;
+        if (!pages.equals("Contact shop"))
+        {
+            if (coloured.equals("1"))
+            {
+                price = 5 * Integer.parseInt(pages) * Integer.parseInt(copies);
+            }
+            else {
+                price = Integer.parseInt(pages) * Integer.parseInt(copies);
+            }
+            pages = Integer.toString(price);
+        }
 
 
         db_reference.child("job_ids").setValue(String.valueOf(Integer.valueOf(job_id)+ 1 ));

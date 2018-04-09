@@ -13,6 +13,7 @@ public class Completed extends AppCompatActivity {
     private TextView owner_mobile;
     private TextView loc;
     private TextView no_copies;
+    private TextView price;
     private TextView col;
     private TextView dou_side;
     private TextView timee;
@@ -31,6 +32,7 @@ public class Completed extends AppCompatActivity {
         ownername = (TextView) findViewById(R.id.Owner_name_value);
         owner_mobile = (TextView) findViewById(R.id.Owner_contact_value);
         no_copies = (TextView) findViewById(R.id.copies_value);
+        price = (TextView) findViewById(R.id.price_value);
         col = (TextView) findViewById(R.id.color_value);
         dou_side = (TextView) findViewById(R.id.double_value);
         ct = (TextView) findViewById(R.id.com);
@@ -43,6 +45,7 @@ public class Completed extends AppCompatActivity {
         ownername.setText(getIntent().getExtras().getString("owner"));
         owner_mobile.setText(getIntent().getExtras().getString("contact"));
         no_copies.setText(getIntent().getExtras().getString("copies"));
+        price.setText(getIntent().getExtras().getString("price"));
         col.setText(getIntent().getExtras().getString("cld"));
         dou_side.setText(getIntent().getExtras().getString("ds"));
         String temp = "Completed on\n" + getIntent().getExtras().getString("ctime");

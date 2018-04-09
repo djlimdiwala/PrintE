@@ -127,6 +127,14 @@ public class fragment_inprogress extends Fragment {
                                     intent.putExtra("port1","0");
                                 }
 
+                                if (!values_0.get(pos).pages.equals("Contact shop"))
+                                {
+                                    intent.putExtra("price","\u20B9 " + values_0.get(pos).pages);
+                                }
+                                else
+                                {
+                                    intent.putExtra("price",values_0.get(pos).pages);
+                                }
 
                                 intent.putExtra("u_id",values_0.get(pos).user_id);
                                 intent.putExtra("s_id",values_0.get(pos).shop_id);

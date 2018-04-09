@@ -114,7 +114,14 @@ public class fragment_completed extends Fragment
                                     intent.putExtra("port","NO");
                                 }
 
-
+                                if (!values_1.get(pos).pages.equals("Contact shop"))
+                                {
+                                    intent.putExtra("price","\u20B9 " + values_1.get(pos).pages);
+                                }
+                                else
+                                {
+                                    intent.putExtra("price",values_1.get(pos).pages);
+                                }
 
                                 change_format(values_1.get(pos).created_on);
                                 intent.putExtra("time",new_date + "   " + new_time);
