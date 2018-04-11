@@ -168,8 +168,8 @@ public class document_upload extends AppCompatActivity implements View.OnClickLi
                         textViewStatus.setText("File Uploaded Successfully");
                         document_link = taskSnapshot.getDownloadUrl().toString();
 
-                        Upload upload = new Upload("dummy", taskSnapshot.getDownloadUrl().toString());
-                        mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);
+//                        Upload upload = new Upload("dummy", taskSnapshot.getDownloadUrl().toString());
+//                        mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

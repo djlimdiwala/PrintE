@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lkh.printe.Common.Common;
+import com.example.lkh.printe.Remote.APIService;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,12 +26,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Inprogress extends AppCompatActivity {
 
@@ -65,6 +72,7 @@ public class Inprogress extends AppCompatActivity {
     private String j11;
     private String j12;
     StorageReference mStorageReference;
+    private APIService mService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +84,7 @@ public class Inprogress extends AppCompatActivity {
 
         preferences = getApplicationContext().getSharedPreferences("MyPref", 0);
 
+        mService = Common.getFCMService();
         timee = (TextView) findViewById(R.id.timeee);
         JobID = (TextView) findViewById(R.id.jobID_value);
         file_name = (TextView) findViewById(R.id.document_name_value);
@@ -149,6 +158,7 @@ public class Inprogress extends AppCompatActivity {
                                 db_reference.child("jobs").child(j1).setValue(save_job);
 
                                 dialog.cancel();
+                                sendNotificationJob(j1);
                                 Toast.makeText(Inprogress.this, "Cancelled successfully...", Toast.LENGTH_LONG).show();
                                 finish();
                             }
@@ -186,4 +196,58 @@ public class Inprogress extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+
+    private void sendNotificationJob(final String order_number) {
+        DatabaseReference tokens=FirebaseDatabase.getInstance().getReference("Tokens");
+        Query data=tokens.orderByChild("isServerToken").equalTo(true);
+        data.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot postSnapShot:dataSnapshot.getChildren()) {
+                    if (postSnapShot.getKey().equals(j3)) {
+                        Token serverToken = postSnapShot.getValue(Token.class);
+//                    Log.e("token",serverToken.getToken());
+
+                    Notification notification = new Notification("Printout ID- " + j1 + " with  Name- " + j10 + " has been cancelled. Check completed section in APP.", "Printout order cancelled ");
+                    Sender content = new Sender(serverToken.getToken(), notification);
+
+                    Log.e("token", serverToken.getToken());
+                    mService.sendNotification(content)
+                            .enqueue(new Callback<MyResponse>() {
+                                @Override
+                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+
+
+                                    if (response.code() == 200) { //Run only when get Result
+                                        if (response.body().success == 1) {
+//                                            Toast.makeText(Inprogress.this, "Thank You, Order Placed", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        } else {
+                                            Toast.makeText(Inprogress.this, "Failed !!!", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+                                }
+
+
+                                @Override
+                                public void onFailure(Call<MyResponse> call, Throwable t) {
+
+                                    Log.e("ERROR", t.getMessage());
+
+                                }
+                            });
+                }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
 }

@@ -16,6 +16,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.lkh.printe.Common.Common;
+import com.example.lkh.printe.Remote.APIService;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
@@ -30,6 +33,10 @@ import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class other_options extends AppCompatActivity {
 
@@ -50,6 +57,7 @@ public class other_options extends AppCompatActivity {
     private RadioGroup orien;
     private String pages = "Contact Shop";
     String copies = "1";
+    private APIService mService;
 
     StorageReference mStorageReference;
 
@@ -64,6 +72,9 @@ public class other_options extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         db_reference = FirebaseDatabase.getInstance().getReference();
         mStorageReference = FirebaseStorage.getInstance().getReference();
+        mService = Common.getFCMService();
+
+
         document_link = getIntent().getExtras().getString("document_lin");
         printer_location = getIntent().getExtras().getString("printer_location");
         shop_ID = getIntent().getExtras().getString("shop_ID");
@@ -188,6 +199,11 @@ public class other_options extends AppCompatActivity {
         db_reference.child("jobs").child(job_id).setValue(save_job);
 
         progressDialog.dismiss();
+
+        sendNotificationJob(job_id);
+
+
+
         Toast.makeText(other_options.this, "Successfully Submitted....", Toast.LENGTH_LONG).show();
        finish();
 
@@ -213,6 +229,65 @@ public class other_options extends AppCompatActivity {
                 }
             });
 
+    }
+
+
+
+
+
+
+
+    private void sendNotificationJob(final String order_number) {
+        DatabaseReference tokens=FirebaseDatabase.getInstance().getReference("Tokens");
+        Query data=tokens.orderByChild("isServerToken").equalTo(true);
+        data.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot postSnapShot:dataSnapshot.getChildren()) {
+                    if (postSnapShot.getKey().equals(shop_ID)) {
+
+
+                    Token serverToken = postSnapShot.getValue(Token.class);
+
+
+                    Notification notification = new Notification("Printout ID- " + job_id + " and Name- " + document_name + " . Please click to open app and complete.", "You have new printout order ");
+                    Sender content = new Sender(serverToken.getToken(), notification);
+
+                    Log.e("token", serverToken.getToken());
+                    mService.sendNotification(content)
+                            .enqueue(new Callback<MyResponse>() {
+                                @Override
+                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+
+
+                                    if (response.code() == 200) { //Run only when get Result
+                                        if (response.body().success == 1) {
+//                                            Toast.makeText(other_options.this, "Thank You, Order Placed", Toast.LENGTH_SHORT).show();
+                                            finish();
+                                        } else {
+                                            Toast.makeText(other_options.this, "Failed !!!", Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+                                }
+
+
+                                @Override
+                                public void onFailure(Call<MyResponse> call, Throwable t) {
+
+                                    Log.e("ERROR", t.getMessage());
+
+                                }
+                            });
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
